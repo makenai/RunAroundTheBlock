@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
 
+  has_many :players
+  has_many :game_pieces, through: :players
+
   def self.from_omniauth(auth)
     user = where(auth.slice('runkeeper_id')).first || create_from_omniauth(auth)
 
@@ -23,4 +26,9 @@ class User < ActiveRecord::Base
 
   def past_activities
   end
+
+  def playing_game?
+    self.game_pieces.where( game_id: Game.current.id ).first.present?
+  end
+
 end

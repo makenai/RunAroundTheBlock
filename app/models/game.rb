@@ -8,17 +8,11 @@ class Game < ActiveRecord::Base
   end
 
   def self.run
-
     # Check for a current game
     if Game.current == nil
       Game.create( start_at: Time.now, current_turn_number: 0 )
     end
     game = Game.current
-
-
-
-
-
   end
 
 end
