@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(:version => 20130327210157) do
     t.string   "thumb_url"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.string   "token"
   end
 
 end
