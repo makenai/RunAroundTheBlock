@@ -1,7 +1,6 @@
 class User < ActiveRecord::Base
 
   def self.from_omniauth(auth)
-    raise auth.to_yaml
     where(auth.slice('runkeeper_id')).first || create_from_omniauth(auth)
   end
 
