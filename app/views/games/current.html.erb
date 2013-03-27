@@ -1,1 +1,13 @@
-Hello Monkey Farts
+<% if !current_user || !current_user.playing_game? %>
+
+  <% if !current_user.playing_game? %>
+    <%= link_to 'Join This Game', new_player_path %>
+  <% else %>
+    <%= link_to 'Join This Game', '/auth/runkeeper' %>
+  <% end %>
+
+<% else %>
+
+Now playing a game!
+
+<% end %>

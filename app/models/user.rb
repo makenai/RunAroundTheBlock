@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
 
+  has_many :players
+  has_many :game_pieces, through: :players
+
   METERS_PER_MILE = 1609.34
 
   def self.from_omniauth(auth)
@@ -43,6 +46,10 @@ class User < ActiveRecord::Base
 
   def recent_activities
     runkeeper.fitness_activities.parsed_response['items']
+  end
+
+  def playing_game?
+    self.game_pieces.where( game_id: Game.current.id ).first.present?
   end
 
 end
