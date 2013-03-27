@@ -1,3 +1,4 @@
 class Turn < ActiveRecord::Base
-  attr_accessible :gamepiece_id, :spaces, :turn_number
+  attr_accessible :game_piece_id, :spaces, :turn_number
+
 end
