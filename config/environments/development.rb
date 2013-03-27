@@ -35,3 +35,7 @@ RunAroundTheBlock::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 end
+
+ENV['RUNKEEPER_CLIENT_ID']     = '21006e52e5354f90b213d84e06f603f5'
+ENV['RUNKEEPER_CLIENT_SECRET'] = 'fede2670c095481d8e28e53143c6060a'
+
