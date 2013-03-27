@@ -38,6 +38,10 @@ class User < ActiveRecord::Base
     meters / METERS_PER_MILE
   end
 
+  def playing_game?
+    self.game_pieces.where( game_id: Game.current.id ).first.present?
+  end
+
   private
 
   def runkeeper
@@ -46,10 +50,6 @@ class User < ActiveRecord::Base
 
   def recent_activities
     runkeeper.fitness_activities.parsed_response['items']
-  end
-
-  def playing_game?
-    self.game_pieces.where( game_id: Game.current.id ).first.present?
   end
 
 end
