@@ -1,0 +1,29 @@
+Game
+  start_at        datetime
+  ends_at         datetime
+  winner_user_id  integer
+  turn_number     integer
+
+GamePiece
+  game_id         integer (belongs to a game)
+  name            string
+  image_url       string
+  space           integer
+
+Turn
+  gamepiece_id    integer
+  turn_number     integer
+  spaces          integer
+
+Bonus
+  turn_id         integer
+  spaces          integer
+  type            
+
+
+Player
+  gamepiece_id    integer
+  runkeeper_id    string
+  image_url       string
+  name            string
+
