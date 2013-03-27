@@ -1,8 +1,9 @@
 class User < ActiveRecord::Base
 
+  METERS_PER_MILE = 1609.34
+
   def self.from_omniauth(auth)
     user = where(auth.slice('runkeeper_id')).first || create_from_omniauth(auth)
-
     user.tap do |user|
       user.name      = auth['info']['name']
       user.nickname  = auth['info']['nickname']
@@ -21,6 +22,27 @@ class User < ActiveRecord::Base
     end
   end
 
-  def past_activities
+  def mileage_on(date = Date.yesterday)
+    date   = DateTime.parse(date.to_s).to_date
+    meters = 0
+
+    recent_activities.each do |activity|
+      next unless activity['type'] == 'Running'
+      next unless DateTime.parse(activity['start_time']).to_date == date
+      meters += activity['total_distance']
+    end
+
+    meters / METERS_PER_MILE
   end
+
+  private
+
+  def runkeeper
+    @runkeeper ||= Runkeeper.new(token)
+  end
+
+  def recent_activities
+    runkeeper.fitness_activities.parsed_response['items']
+  end
+
 end
