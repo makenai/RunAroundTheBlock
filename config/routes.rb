@@ -1,5 +1,17 @@
 RunAroundTheBlock::Application.routes.draw do
   
+  resources :players
+
+
+  resources :bonus
+
+
+  resources :turns
+
+
+  resources :game_pieces
+
+
   resources :games
 
   # The priority is based upon order of creation:

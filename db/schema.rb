@@ -11,7 +11,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130327210318) do
+ActiveRecord::Schema.define(:version => 20130327210157) do
+
+  create_table "bonuses", :force => true do |t|
+    t.integer  "turn_id"
+    t.integer  "spaces"
+    t.string   "bonus_type"
+    t.integer  "player_id"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "game_pieces", :force => true do |t|
+    t.integer  "game_id"
+    t.string   "name"
+    t.string   "image_url"
+    t.integer  "last_space"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "games", :force => true do |t|
     t.datetime "start_at"
@@ -20,6 +39,22 @@ ActiveRecord::Schema.define(:version => 20130327210318) do
     t.integer  "current_turn_number"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
+  end
+
+  create_table "players", :force => true do |t|
+    t.integer  "gamepiece_id"
+    t.integer  "user_id"
+    t.integer  "turn_joined"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "turns", :force => true do |t|
+    t.integer  "gamepiece_id"
+    t.integer  "turn_number"
+    t.integer  "spaces"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "users", :force => true do |t|
