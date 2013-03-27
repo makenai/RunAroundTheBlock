@@ -4,14 +4,10 @@ class Game < ActiveRecord::Base
 
 
   def self.current
-    Game.where( winner_game_piece_id: nil ).order( 'start_at desc' ).first
+    Game.where( winner_game_piece_id: nil ).order( 'start_at desc' ).first || Game.create( start_at: Time.now, current_turn_number: 0 )
   end
 
   def self.run
-    # Check for a current game
-    if Game.current == nil
-      Game.create( start_at: Time.now, current_turn_number: 0 )
-    end
     game = Game.current
   end
 

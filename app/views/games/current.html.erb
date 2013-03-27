@@ -1,11 +1,7 @@
-<% if !current_user || !current_user.playing_game? %>
-
-  <% if !current_user %>
-    <%= link_to 'Join This Game', '/auth/runkeeper' %>
-  <% else %>
-    <%= link_to 'Join This Game', new_player_path %>
-  <% end %>
-
+<% if !current_user %>
+	<%= link_to 'Join This Game', '/auth/runkeeper' %>
+<% elsif !current_user.playing_game?  %>
+	<%= link_to 'Join This Game', new_player_path %>
 <% else %>
 
   Now playing a game!
