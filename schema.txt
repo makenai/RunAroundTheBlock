@@ -1,16 +1,16 @@
-Game
-  start_at        datetime
-  ends_at         datetime
-  winner_user_id  integer
-  turn_number     integer
+Game * view
+  start_at         datetime
+  ended_at         datetime
+  winner_game_piece_id integer
+  turn_number      integer
 
-GamePiece
+GamePiece * view
   game_id         integer (belongs to a game)
   name            string
   image_url       string
-  space           integer
+  last_space      integer
 
-Turn
+Turn * view
   gamepiece_id    integer
   turn_number     integer
   spaces          integer
@@ -18,12 +18,16 @@ Turn
 Bonus
   turn_id         integer
   spaces          integer
-  type            
+  type            string
+  player_id       integer (the hero)
+  description     text
 
-
-Player
+Player * view
   gamepiece_id    integer
+  user_id         integer
+  turn_joined     integer
+
+User
   runkeeper_id    string
   image_url       string
   name            string
-
