@@ -3,7 +3,7 @@ class Turn < ActiveRecord::Base
   belongs_to :game_piece
   has_many :bonuses
 
-  def process_bonuses
+  def process_bonuses(total_spaces)
     # Create bonus objects here. Be idempotent.
   end
 
