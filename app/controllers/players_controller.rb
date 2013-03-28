@@ -18,8 +18,7 @@ class PlayersController < ApplicationController
       game_piece = GamePiece.create( 
         game_id: Game.current.id, 
         name: name,
-        color: color, 
-        last_space: 0 
+        color: color
       )
     end
 
