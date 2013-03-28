@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130327233435) do
+ActiveRecord::Schema.define(:version => 20130328205159) do
 
   create_table "bonuses", :force => true do |t|
     t.integer  "turn_id"
@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(:version => 20130327233435) do
     t.integer  "game_id"
     t.string   "name"
     t.string   "image_url"
-    t.integer  "last_space"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
