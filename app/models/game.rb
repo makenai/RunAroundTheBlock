@@ -2,9 +2,14 @@ class Game < ActiveRecord::Base
   attr_accessible :current_turn_number, :ended_at, :start_at, :winner_game_piece_id
   has_many :game_pieces
 
-  MAX_SPACES = 7
   DEMO_FLAG = true
   DEMO_GAME_PIECES = ["Yellow", "Red", "Blue", "Green"]
+
+  if DEMO_FLAG
+    MAX_SPACES = 7
+  else
+    MAX_SPACES = 26
+  end
 
   def self.current
     Game.where( winner_game_piece_id: nil ).order( 'start_at desc' ).first || Game.create( start_at: Time.now, current_turn_number: 0 )
@@ -32,7 +37,7 @@ class Game < ActiveRecord::Base
     end
 
     # update current turn number
-    if Game::DEMO_FLAG
+    if DEMO_FLAG
       game.current_turn_number += 1
     else
       game.current_turn_number = (Time.now - game.start).to_i / 1.day
