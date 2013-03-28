@@ -1,9 +1,16 @@
 class GamePiece < ActiveRecord::Base
 
-  attr_accessible :game_id, :image_url, :last_space, :name
+  attr_accessible :game_id, :image_url, :last_space, :color, :name
   belongs_to :game
   has_many :players
   has_many :turns
+
+  TEAMS = [
+    { name: 'Brooks',  color: 'red'    },
+    { name: 'Saucony', color: 'green'  },
+    { name: 'Nike',    color: 'blue'   },
+    { name: 'Other',   color: 'yellow' }
+  ]
 
   def total_mileage_on(date = Date.yesterday)
     date = DateTime.parse(date.to_s).to_date

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  distance: 1
+  user_id: 1
+  turn_id: 1
+
+two:
+  distance: 1
+  user_id: 1
+  turn_id: 1

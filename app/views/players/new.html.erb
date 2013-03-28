@@ -1,11 +1,11 @@
 <%= form_for Player.new do |f| %>
   
-  What is your favorite brand of running shoe?
+  <p>What is your favorite brand of running shoe?</p>
 
-<% [ 'Brooks', 'Saucony', 'Nike', 'Mizuno', 'New Balance', 'PUMA', 'Adidas', 'Other' ].each do |choice| %>
-  <label><%= f.radio_button :answer, choice %> <%= choice %></label><br />
+<% GamePiece::TEAMS.each do |team| %>
+  <label><%= f.radio_button :answer, team[:color] %> <%= team[:name] %></label><br />
 <% end %>
 
-  <%= f.submit %>
+  <p><%= f.submit %></p>
 
 <% end %>
