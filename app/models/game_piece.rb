@@ -1,5 +1,5 @@
 class GamePiece < ActiveRecord::Base
-  
+
   attr_accessible :game_id, :image_url, :last_space, :name
   belongs_to :game
   has_many :players
@@ -33,6 +33,7 @@ class GamePiece < ActiveRecord::Base
 
   def animate
     # Something fancy here?
+    # We may need to store last_space in the session data?
     update_attribute :last_space, current_space
   end
 
