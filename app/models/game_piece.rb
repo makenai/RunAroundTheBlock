@@ -13,8 +13,8 @@ class GamePiece < ActiveRecord::Base
   end
 
   def average_mileage_on(date = Date.yesterday)
-    return 0 if users.none?
-    total_mileage_on(date) / users.size
+    return 0 if players.none?
+    total_mileage_on(date) / players.size
   end
 
   def find_turn(turn_number)
