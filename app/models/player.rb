@@ -3,4 +3,7 @@ class Player < ActiveRecord::Base
   attr_accessor :answer
   belongs_to :user
   belongs_to :game_piece
+
+  delegate :mileage_on, to: :user
+
 end
