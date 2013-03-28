@@ -17,6 +17,9 @@ class GamePiece < ActiveRecord::Base
     date = DateTime.parse(date.to_s).to_date
     players.inject(0) do |sum, player|
       sum += player.mileage_on(date)
+      if Game::DEMO_FLAG 
+      	sum += 1
+      end
     end
   end
 
