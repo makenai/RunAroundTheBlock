@@ -1,3 +1,24 @@
 // Place all the styles related to the Games controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#board {
+    height:1024px;
+    width:1024px;
+    background-image: url('board_w_squares.png');
+    background-repeat: no-repeat;
+    position: relative;
+
+    div {
+      width: 136px;
+      height: 136px;
+      // outline: 1px solid green;
+      position: absolute;
+    }
+}
+
+#space1 {
+  top: 10px;
+  left: 20px;
+  outline: 1px solid green;
+}
