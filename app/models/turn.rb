@@ -8,7 +8,13 @@ class Turn < ActiveRecord::Base
   end
 
   def total_spaces
-    spaces + bonuses.spaces.reduce(&:+)
+    spaces + bonuses_spaces
+  end
+
+  def bonuses_spaces
+    bonuses.reduce(0) do |sum, bonus|
+      sum += bonus.spaces
+    end
   end
 
 end
