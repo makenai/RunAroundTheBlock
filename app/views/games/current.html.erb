@@ -16,7 +16,7 @@
   </div>
 
   <% @game_pieces.each do |game_piece| %>
-    <%= game_piece.name %>
+    <div id="gp<%= game_piece.id %>" class="marker color0"><%= game_piece.name %></div>
   <% end %>
 
 <% end %>

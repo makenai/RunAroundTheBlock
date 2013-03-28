@@ -17,6 +17,31 @@
     }
 }
 
+.marker {
+  height: 90px;
+  width: 75px;
+  background-image: url('markers.png');
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  text-indent: -9999px;
+}
+
+.color0 {
+  background-position: 0 0;
+}
+
+.color1 {
+  background-position: 0 -110px;
+}
+
+.color2 {
+  background-position: 0 -215px;
+}
+
+.color3 {
+  background-position: 0 -320px;
+}
+
 #space0 {
   top: 20px;
   left: 20px;
