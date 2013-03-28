@@ -1,6 +1,6 @@
 class GamePiece < ActiveRecord::Base
 
-  attr_accessible :game_id, :image_url, :last_space, :color, :name
+  attr_accessible :game_id, :image_url, :color, :name
   belongs_to :game
   has_many :players
   has_many :turns
@@ -11,6 +11,7 @@ class GamePiece < ActiveRecord::Base
     { name: 'Nike',    color: 'blue'   },
     { name: 'Other',   color: 'yellow' }
   ]
+  delegate :current_turn_number, to: :game
 
   def total_mileage_on(date = Date.yesterday)
     date = DateTime.parse(date.to_s).to_date
@@ -24,34 +25,37 @@ class GamePiece < ActiveRecord::Base
     total_mileage_on(date) / players.size
   end
 
-  def find_turn(turn_number)
+  def get_turn(turn_number)
     self.turns.where(turn_number: turn_number).first
   end
 
   def todays_turn
-    find_turn(game.current_turn_number)
+    get_turn(current_turn_number)
   end
+  alias_method :last_turn, :todays_turn
 
-  def do_turn(turn_number = game.current_turn_number)
-    turn = find_turn(turn_number) || create_turn(turn_number)
-    turn.process_bonuses
-    animate
-  end
-
-  def animate
-    # Something fancy here?
-    # We may need to store last_space in the session data?
-    update_attribute :last_space, current_space
-  end
-
-  def current_space
-    turns.reduce(0) do |sum, turn|
-      sum += turn.total_spaces
-    end
+  def do_turn(turn_number = current_turn_number)
+    turn = get_turn(turn_number) || create_turn(turn_number)
+    turn.process_bonuses(last_space + turn.spaces)
   end
 
   def finished?
     current_space > Game::MAX_SPACES
+  end
+
+  def space_at(turn_number)
+    selected_turns = turns.find_all { |t| t.turn_number <= turn_number }
+    selected_turns.reduce(0) do |sum, turn|
+      sum += turn.total_spaces
+    end
+  end
+
+  def current_space
+    space_at(current_turn_number)
+  end
+
+  def last_space
+    space_at(current_turn_number - 1)
   end
 
   private

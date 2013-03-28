@@ -9,13 +9,14 @@
 <% else %>
 
   <div id="board">
+    <div id="space0"></div>
     <% 26.times do |i| %>
       <div id="space<%= i + 1 %>"></div>
     <% end %>
   </div>
 
   <% @game_pieces.each do |game_piece| %>
-    <%= game_piece.name %>
+    <div id="gp<%= game_piece.id %>" class="marker color0"><%= game_piece.name %></div>
   <% end %>
 
 <% end %>
