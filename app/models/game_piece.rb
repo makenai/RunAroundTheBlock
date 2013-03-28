@@ -9,7 +9,7 @@ class GamePiece < ActiveRecord::Base
 
   def total_mileage_on(date = Date.yesterday)
     date = DateTime.parse(date.to_s).to_date
-    players.inject(0) do |num, player|
+    players.inject(0) do |sum, player|
       sum += player.mileage_on(date)
     end
   end

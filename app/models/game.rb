@@ -14,6 +14,7 @@ class Game < ActiveRecord::Base
     # update the turn number
     puts("Game turn: #{game.current_turn_number}")
     game.current_turn_number += 1
+    game.save
 
     # update all of the game pieces and check for winner
     game_pieces = game.game_pieces;
