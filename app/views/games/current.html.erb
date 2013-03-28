@@ -8,16 +8,14 @@
 
 <% else %>
 
-
   <div id="board">
-    omg you're playing a game!
+    <% 26.times do |i| %>
+      <div id="space<%= i + 1 %>"></div>
+    <% end %>
   </div>
 
-
   <% @game_pieces.each do |game_piece| %>
-
     <%= game_piece.name %>
-
   <% end %>
 
 <% end %>
