@@ -16,8 +16,48 @@ class GamePiece < ActiveRecord::Base
     total_mileage_on(date) / users.size
   end
 
-  def todays_turn
-    self.turns.where( turn_number: self.game.current_turn_number ).first
+  def find_turn(turn_number)
+    self.turns.where(turn_number: turn_number).first
   end
+
+  def todays_turn
+    find_turn(game.current_turn_number)
+  end
+
+  def do_turn(turn_number = game.current_turn_number)
+    turn = find_turn(turn_number) || create_turn(turn_number)
+    turn.process_bonuses
+    animate
+  end
+
+  def animate
+    # Something fancy here?
+    update_attribute :last_space, current_space
+  end
+
+  def current_space
+    turns.reduce(0) do |sum, turn|
+      sum += turn.total_spaces
+    end
+  end
+
+  def finished?
+    next_space > Game::MAX_SPACES
+  end
+
+  private
+
+  def create_turn(turn_number)
+    self.turns.create! do |turn|
+      turn.turn_number = turn_number
+      turn.spaces = some_algorithm(turn_number)
+    end
+  end
+
+  def some_algorithm(turn_number)
+    # Not sure yet. For now, 3.
+    3
+  end
+
 
 end
