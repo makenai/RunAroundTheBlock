@@ -12,6 +12,15 @@
  *= require_tree .
  */
 
+
 body {
   font-family: 'Salsa', cursive;
+
+}
+
+#board {
+    height:1024px;
+    width:1024px;
+    background-image: url('board_w_squares.png');
+    background-repeat: no-repeat;
 }
