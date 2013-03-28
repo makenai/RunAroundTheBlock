@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130328205159) do
+ActiveRecord::Schema.define(:version => 20130328231718) do
 
   create_table "bonuses", :force => true do |t|
     t.integer  "turn_id"
@@ -25,10 +25,10 @@ ActiveRecord::Schema.define(:version => 20130328205159) do
 
   create_table "distances", :force => true do |t|
     t.integer  "distance"
-    t.integer  "user_id"
     t.integer  "turn_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "player_id"
   end
 
   create_table "game_pieces", :force => true do |t|
