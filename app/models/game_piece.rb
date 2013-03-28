@@ -57,8 +57,9 @@ class GamePiece < ActiveRecord::Base
   end
 
   def some_algorithm(turn_number)
-    # Not sure yet. For now, 3.
-    3
+    start_date   = game.start_at.to_date
+    date_of_turn = start_date + (turn_number - 1).days
+    average_mileage_on(date_of_turn)
   end
 
 
