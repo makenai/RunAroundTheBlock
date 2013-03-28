@@ -1,11 +1,23 @@
 <% if !current_user %>
+
 	<%= link_to 'Join This Game', '/auth/runkeeper' %>
+
 <% elsif !current_user.playing_game?  %>
+
 	<%= link_to 'Join This Game', new_player_path %>
+
 <% else %>
+
 
   <div id="board">
     omg you're playing a game!
   </div>
+
+
+  <% @game_pieces.each do |game_piece| %>
+
+    <%= game_piece.name %>
+
+  <% end %>
 
 <% end %>

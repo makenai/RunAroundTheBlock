@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130327214106) do
+ActiveRecord::Schema.define(:version => 20130327233435) do
 
   create_table "bonuses", :force => true do |t|
     t.integer  "turn_id"
@@ -50,11 +50,11 @@ ActiveRecord::Schema.define(:version => 20130327214106) do
   end
 
   create_table "turns", :force => true do |t|
-    t.integer  "gamepiece_id"
+    t.integer  "game_piece_id"
     t.integer  "turn_number"
     t.integer  "spaces"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "users", :force => true do |t|

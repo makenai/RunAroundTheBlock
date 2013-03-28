@@ -12,6 +12,12 @@
  *= require_tree .
  */
 
+
+body {
+  font-family: 'Salsa', cursive;
+
+}
+
 #board {
     height:1024px;
     width:1024px;
