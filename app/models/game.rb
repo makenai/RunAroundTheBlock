@@ -3,7 +3,7 @@ class Game < ActiveRecord::Base
   has_many :game_pieces
 
   DEMO_FLAG = true
-  DEMO_GAME_PIECES = ["Brooks", "Nike"]
+  DEMO_GAME_PIECES = [GamePiece::TEAMS[0], GamePiece::TEAMS[2]]
 
   if DEMO_FLAG
     MAX_SPACES = 7
@@ -69,7 +69,7 @@ class Game < ActiveRecord::Base
   def assign_random_game_pieces
     game_id = Game.current.id
     for i in 0...Game::DEMO_GAME_PIECES.count
-      name = Game::DEMO_GAME_PIECES[i]
+      name = Game::DEMO_GAME_PIECES[i][:name]
       game_piece = GamePiece.create( game_id: game_id, name: name )
       user = User.order("RANDOM()").first
       if user.game_pieces.where(game_id: game_id).count == 0
