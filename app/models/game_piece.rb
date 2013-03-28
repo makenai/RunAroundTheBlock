@@ -11,14 +11,15 @@ class GamePiece < ActiveRecord::Base
     { name: 'Nike',    color: 'blue'   },
     { name: 'Other',   color: 'yellow' }
   ]
+  RAND_MAX_FOR_DEMO = 3
   delegate :current_turn_number, to: :game
 
   def total_mileage_on(date = Date.yesterday)
     date = DateTime.parse(date.to_s).to_date
     players.inject(0) do |sum, player|
       sum += player.mileage_on(date)
-      if Game::DEMO_FLAG 
-      	sum += 1
+      if Game::DEMO_FLAG
+      	sum += rand GamePiece::RAND_MAX_FOR_DEMO
       end
     end
   end

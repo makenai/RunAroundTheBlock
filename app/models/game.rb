@@ -3,7 +3,7 @@ class Game < ActiveRecord::Base
   has_many :game_pieces
 
   DEMO_FLAG = true
-  DEMO_GAME_PIECES = ["Yellow", "Red", "Blue", "Green"]
+  DEMO_GAME_PIECES = ["Brooks", "Nike"]
 
   if DEMO_FLAG
     MAX_SPACES = 7
@@ -53,7 +53,7 @@ class Game < ActiveRecord::Base
         game.crossed_finish(game_piece)
         break
       else
-        puts("updated space: #{game_piece.current_space}")
+        puts("#{game_piece.name} is at #{game_piece.current_space}")
       end
     end
   end
@@ -70,7 +70,6 @@ class Game < ActiveRecord::Base
     game_id = Game.current.id
     for i in 0...Game::DEMO_GAME_PIECES.count
       name = Game::DEMO_GAME_PIECES[i]
-      puts name
       game_piece = GamePiece.create( game_id: game_id, name: name )
       user = User.order("RANDOM()").first
       if user.game_pieces.where(game_id: game_id).count == 0
