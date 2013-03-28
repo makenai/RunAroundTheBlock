@@ -26,6 +26,7 @@ class GamePiece < ActiveRecord::Base
   def todays_turn
     get_turn(current_turn_number)
   end
+  alias_method :last_turn, :todays_turn
 
   def do_turn(turn_number = current_turn_number)
     turn = get_turn(turn_number) || create_turn(turn_number)
@@ -36,7 +37,7 @@ class GamePiece < ActiveRecord::Base
     current_space > Game::MAX_SPACES
   end
 
-  def space_at(turn_number = current_turn_number)
+  def space_at(turn_number)
     selected_turns = turns.find_all { |t| t.turn_number <= turn_number }
     selected_turns.reduce(0) do |sum, turn|
       sum += turn.total_spaces
@@ -44,7 +45,7 @@ class GamePiece < ActiveRecord::Base
   end
 
   def current_space
-    space_at
+    space_at(current_turn_number)
   end
 
   def last_space
