@@ -44,7 +44,7 @@ class GamePiece < ActiveRecord::Base
   end
 
   def finished?
-    next_space > Game::MAX_SPACES
+    current_space > Game::MAX_SPACES
   end
 
   private
