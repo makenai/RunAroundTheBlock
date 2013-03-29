@@ -67,6 +67,7 @@ class GamePiece < ActiveRecord::Base
   def create_turn(turn_number)
     self.turns.create! do |turn|
       turn.turn_number = turn_number
+      turn.starting_space = self.current_space
       turn.spaces = some_algorithm(turn_number)
     end
   end
