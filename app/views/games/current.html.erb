@@ -1,3 +1,7 @@
+<script type="text/javascript">
+  var gamePieces = <%= JSON.pretty_generate( @game_data ).html_safe %>;
+</script>
+
 <% if !current_user %>
 
 	<%= link_to 'Join This Game', '/auth/runkeeper' %>

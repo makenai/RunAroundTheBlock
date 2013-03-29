@@ -24,7 +24,7 @@ class Game < ActiveRecord::Base
     game = Game.current
 
     # update all of the game pieces and check for winner
-    game_pieces = game.game_pieces;
+    game_pieces = game.game_pieces
 
     # trip out if there aren't any game pieces, no point wasting turns
     if game_pieces.count == 0
