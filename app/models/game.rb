@@ -2,7 +2,7 @@ class Game < ActiveRecord::Base
   attr_accessible :current_turn_number, :ended_at, :start_at, :winner_game_piece_id
   has_many :game_pieces
 
-  BONUS_SPACES = [3, 7, 13, 17, 21]
+  BONUS_SPACES = [3, 7, 13, 17, 23]
   DEMO_FLAG = true
   DEMO_GAME_PIECES = [GamePiece::TEAMS[0], GamePiece::TEAMS[2]]
 
@@ -22,11 +22,11 @@ class Game < ActiveRecord::Base
   end
 
   def self.space_classes(i)
-    classes = "game-space"
+    classes = ""
     if Game::BONUS_SPACES.include? (i+1)
-      classes = "#{classes} bonus-space"
+      classes = "bonus-space"
     end
-    "#{classes} #{i}"
+    "#{classes}"
   end
 
   def self.run
