@@ -1,15 +1,17 @@
 $(document).ready(function() {
 
+     console.log("foo",gamePieces);
+
+
     function setUpGamePieces() {
-        var markers = $(".marker");
 
-        for (var i = 0; i < makers.length; i += 1) {
-
-        }
     }
 
+    function findPosOfSpace(start, end) {
+
+    }
 
     var init = function initGame() {
-
+        //setUpGamePieces();
     };
 });
