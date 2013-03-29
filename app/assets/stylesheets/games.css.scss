@@ -176,3 +176,21 @@
   top: 869px;
   left: 586px;
 }
+
+.game-space {
+
+}
+
+.bonus-space {
+  background: yellow;
+  opacity: .1;
+  filter:alpha(opacity=10);
+}
+
+table {
+  border: 1px solid black;
+}
+
+td, th {
+  vertical-align: top;
+}
