@@ -1,1 +1,14 @@
-Updated current game to turn: <%= Game.current.current_turn_number %>
+<div class="current-game tabbed">
+	Game updated!<br/>
+	Current turn: <%= Game.current.current_turn_number %>
+
+	<% Game.current.game_pieces.each do |game_piece| %>
+	<div class="game-piece tabbed">
+		<%= game_piece.name %> @ <%= game_piece.current_space %>
+		<% game_piece.players.each do |player| %>
+			<div class="player tabbed"><%= player.user.name %></div>
+		<% end %>
+	</div>
+	<% end %>
+
+</div>
