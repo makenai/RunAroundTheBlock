@@ -25,6 +25,8 @@ class User < ActiveRecord::Base
   end
 
   def mileage_on(date = Date.yesterday)
+    return Random.rand( 7 ) if Game::DEMO_FLAG
+    
     date   = DateTime.parse(date.to_s).to_date
     meters = 0
 

@@ -1,5 +1,7 @@
 RunAroundTheBlock::Application.routes.draw do
   
+  get "demo/run"
+
   resources :players
 
 
@@ -13,6 +15,8 @@ RunAroundTheBlock::Application.routes.draw do
 
 
   resources :games
+
+  resources :demo
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

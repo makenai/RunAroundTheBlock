@@ -1,3 +1,4 @@
 class Distance < ActiveRecord::Base
-  attr_accessible :distance, :turn_id, :user_id
+  belongs_to :player
+  belongs_to :turn
 end
