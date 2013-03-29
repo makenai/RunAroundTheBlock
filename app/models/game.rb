@@ -4,13 +4,9 @@ class Game < ActiveRecord::Base
 
   BONUS_SPACES = [3, 7, 13, 17, 23]
   DEMO_FLAG = true
-  DEMO_GAME_PIECES = [GamePiece::TEAMS[0], GamePiece::TEAMS[2]]
+  DEMO_GAME_PIECES = GamePiece::TEAMS.sample(2)
+  BOARD_SPACES = 26
 
-  if DEMO_FLAG
-    BOARD_SPACES = 26
-  else
-    BOARD_SPACES = 26
-  end
 
   def self.current
     game = Game.where( winner_game_piece_id: nil ).order( 'start_at desc' ).first || Game.create( start_at: Time.now, current_turn_number: 0 )
