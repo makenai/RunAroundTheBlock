@@ -7,11 +7,10 @@
 	<%= link_to 'Join This Game', new_player_path %>
 
 <% else %>
-
   <div id="board">
     <div id="space0"></div>
     <% 26.times do |i| %>
-      <div id="space<%= i + 1 %>"></div>
+      <div id="space<%= i + 1 %>" class="<%= Game.space_classes i %>"></div>
     <% end %>
   </div>
 

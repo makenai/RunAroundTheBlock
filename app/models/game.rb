@@ -2,6 +2,7 @@ class Game < ActiveRecord::Base
   attr_accessible :current_turn_number, :ended_at, :start_at, :winner_game_piece_id
   has_many :game_pieces
 
+  BONUS_SPACES = [3, 7, 13, 17, 21]
   DEMO_FLAG = true
   DEMO_GAME_PIECES = [GamePiece::TEAMS[0], GamePiece::TEAMS[2]]
 
@@ -18,6 +19,14 @@ class Game < ActiveRecord::Base
       game.assign_random_game_pieces
     end
     game
+  end
+
+  def self.space_classes(i)
+    classes = "game-space"
+    if Game::BONUS_SPACES.include? (i+1)
+      classes = "#{classes} bonus-space"
+    end
+    "#{classes} #{i}"
   end
 
   def self.run
@@ -72,9 +81,9 @@ class Game < ActiveRecord::Base
       name = Game::DEMO_GAME_PIECES[i][:name]
       game_piece = GamePiece.create( game_id: game_id, name: name )
       user = User.order("RANDOM()").first
-      if user.game_pieces.where(game_id: game_id).count == 0
+      #if user.game_pieces.where(game_id: game_id).count == 0
         player = Player.create( user_id: user.id, game_piece_id: game_piece.id, turn_joined: 0 )
-      end
+      #end
     end
   end
 end
