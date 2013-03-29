@@ -4,3 +4,9 @@ require 'bundler/setup'
 
 # Load zappos-deploy
 require 'zappos-deploy/recipes/all'
+
+namespace :app do
+  task :release do
+    # Nothing
+  end
+end
