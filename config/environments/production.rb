@@ -65,3 +65,7 @@ RunAroundTheBlock::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 end
+
+ENV['RUNKEEPER_CLIENT_ID']     = '21006e52e5354f90b213d84e06f603f5'
+ENV['RUNKEEPER_CLIENT_SECRET'] = 'fede2670c095481d8e28e53143c6060a'
+
