@@ -1,5 +1,5 @@
 class Turn < ActiveRecord::Base
-  attr_accessible :game_piece_id, :spaces, :turn_number
+  attr_accessible :game_piece_id, :spaces, :turn_number, :starting_space
   belongs_to :game_piece
   has_many :bonuses
 
