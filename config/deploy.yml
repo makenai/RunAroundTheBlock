@@ -1,0 +1,25 @@
+# Application slug name
+# E.g., tweetwall
+application: runaround 
+
+# App severity level
+#   lev1 - highly available apps (e.g., share, zn, eye4style)
+#   lev2 - most other apps
+app_level: lev2
+
+# Type of app
+#   rails, rack - Rails and rack apps
+#   node - Node.js apps
+#   static - Static apps (pure html/css/js)
+type: rack
+
+# Uncomment if using rvm on deploy server (comment out rbenv below)
+# rvm_ruby_version: 1.9.2
+
+# Uncomment if using rbenv deploy server (comment out rvm above)
+rbenv_ruby_version: 1.9.3
+
+# Specify role for God monitoring.
+# For Node.js, this should be 'app'
+# For Rails, this should likely be 'db' unless monitoring jobs across multiple servers.
+god_role: db

@@ -18,8 +18,25 @@ test:
   pool: 5
   timeout: 5000
 
-production:
-  adapter: sqlite3
-  database: db/production.sqlite3
+staging:
+  adapter: mysql2
+  host: localhost
+  encoding: utf8
+  reconnect: false
+  database: runaround
   pool: 5
+  username: runaround
+  password: cmfelsfgdg
   timeout: 5000
+  
+production:
+  adapter: mysql2
+  host: db1.zappos-expo.com
+  encoding: utf8
+  reconnect: false
+  database: runaround
+  pool: 5
+  username: runaround
+  password: gjirxvrxnh
+  timeout: 5000
+  

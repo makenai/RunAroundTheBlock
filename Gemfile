@@ -20,8 +20,13 @@ gem 'jquery-rails'
 
 group :development do
   gem 'sqlite3'
+  gem 'zappos-deploy', git: 'git@github.zappos.net:shaber/zappos-deploy.git'
 end
 
 group :development, :test do
   gem 'rspec-rails'
+end
+
+group :staging, :production do
+  gem "mysql2"
 end

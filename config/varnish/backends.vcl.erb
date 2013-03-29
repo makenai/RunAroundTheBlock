@@ -1,0 +1,32 @@
+<% _servers(:app).each do |i| %>
+backend <%= i.split('.').first.gsub('-','_') %> {
+  .host = "<%= i %>";
+  .port = "80";
+  .probe = {
+    .interval = 5s;
+    .timeout = 1s;
+    .window = 5;
+    .threshold = 3;
+    .url = "/";
+    .expected_response = 200;
+  }
+}
+<% end %>
+
+director <%= application %> round-robin {
+<% _servers(:app).each do |i| %>
+  {
+    .backend = <%= i.split('.').first.gsub('-','_') %>;
+  }
+<% end %>
+}
+
+sub vcl_recv {
+  if (req.http.host ~ "<%= application %>") {
+    set req.http.host = "<%= application %>.apps.zappos.com";
+  }
+  set req.backend = <%= application %>;
+  if (req.request == "GET" && req.url ~ "\.(css|js|gif|jpg|jpeg|bmp|png|ico|img|tga|wmf|swf)$") {
+    return(lookup);
+  }
+}
