@@ -1,0 +1,46 @@
+<% @games.each do |game| %>
+<table>
+  <tr>
+    <th>Game</th>
+    <td><%= game.id %></td>
+  </tr>
+  <tr>
+    <th>Current Turn</th>
+    <td><%= game.current_turn_number %></td>
+  </tr>
+  <tr>
+    <th>Game Pieces</th>
+    <td>
+      <% game.game_pieces.each do |game_piece| %>
+
+        <table>
+          <tr>
+            <th>Name</th>
+            <td><%= game_piece.name %></td>
+          </tr>
+          <tr>
+            <th>Color</th>
+            <td><%= game_piece.color %></td>
+          </tr>          
+          <tr>
+            <th>Players</th>
+            <td>
+              <% game_piece.players.each do |player| %>
+                <%= player.user.name %>
+              <% end %>
+            </td>
+          </tr>
+        </table>
+
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <th>Turns</th>
+    <td>
+
+    </td>
+  </tr>
+</table>
+<hr />
+<% end %>
