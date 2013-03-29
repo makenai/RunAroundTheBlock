@@ -13,6 +13,7 @@ class GamesController < ApplicationController
         color: game_piece.color,
         starting_space: turn.try(:starting_space) || 0,
         spaces: turn.try(:spaces) || 0,
+        is_current_user: game_piece.users.include?( current_user ),
         bonuses: []
       }
       @game_data.push( data )

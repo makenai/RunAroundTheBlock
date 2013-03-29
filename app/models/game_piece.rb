@@ -3,6 +3,7 @@ class GamePiece < ActiveRecord::Base
   attr_accessible :game_id, :image_url, :color, :name
   belongs_to :game
   has_many :players
+  has_many :users, :through => :players
   has_many :turns
 
   TEAMS = [
