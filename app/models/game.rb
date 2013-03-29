@@ -6,7 +6,7 @@ class Game < ActiveRecord::Base
   DEMO_GAME_PIECES = [GamePiece::TEAMS[0], GamePiece::TEAMS[2]]
 
   if DEMO_FLAG
-    BOARD_SPACES = 7
+    BOARD_SPACES = 26
   else
     BOARD_SPACES = 26
   end
