@@ -6,9 +6,9 @@ class Game < ActiveRecord::Base
   DEMO_GAME_PIECES = [GamePiece::TEAMS[0], GamePiece::TEAMS[2]]
 
   if DEMO_FLAG
-    MAX_SPACES = 7
+    BOARD_SPACES = 7
   else
-    MAX_SPACES = 26
+    BOARD_SPACES = 26
   end
 
   def self.current

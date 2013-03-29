@@ -44,7 +44,7 @@ class GamePiece < ActiveRecord::Base
   end
 
   def finished?
-    current_space > Game::MAX_SPACES
+    current_space > Game::BOARD_SPACES
   end
 
   def space_at(turn_number)
