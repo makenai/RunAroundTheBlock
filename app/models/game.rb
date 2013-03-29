@@ -12,7 +12,12 @@ class Game < ActiveRecord::Base
   end
 
   def self.current
-    Game.where( winner_game_piece_id: nil ).order( 'start_at desc' ).first || Game.create( start_at: Time.now, current_turn_number: 0 )
+    game = Game.where( winner_game_piece_id: nil ).order( 'start_at desc' ).first || Game.create( start_at: Time.now, current_turn_number: 0 )
+    # assign random game pieces for demo games without any
+    if Game::DEMO_FLAG && game.game_pieces.count == 0
+      game.assign_random_game_pieces
+    end
+    game
   end
 
   def self.run
@@ -23,12 +28,7 @@ class Game < ActiveRecord::Base
 
     # trip out if there aren't any game pieces, no point wasting turns
     if game_pieces.count == 0
-      if Game::DEMO_FLAG
-        game.assign_random_game_pieces
-        game_pieces = game.game_pieces
-      else
-        return "no game pieces yet"
-      end
+      return "no game pieces yet"
     end
 
     # if this is the first real turn, update start to today
@@ -67,7 +67,7 @@ class Game < ActiveRecord::Base
   end
 
   def assign_random_game_pieces
-    game_id = Game.current.id
+    game_id = self.id
     for i in 0...Game::DEMO_GAME_PIECES.count
       name = Game::DEMO_GAME_PIECES[i][:name]
       game_piece = GamePiece.create( game_id: game_id, name: name )
