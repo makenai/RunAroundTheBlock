@@ -11,8 +11,8 @@ class GamesController < ApplicationController
         id: game_piece.id,
         name: game_piece.name,
         color: game_piece.color,
-        starting_space: turn.try(:starting_space),
-        spaces: turn.try(:spaces),
+        starting_space: turn.try(:starting_space) || 0,
+        spaces: turn.try(:spaces) || 0,
         bonuses: []
       }
       @game_data.push( data )

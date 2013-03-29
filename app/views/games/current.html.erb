@@ -1,4 +1,5 @@
 <script type="text/javascript">
+  var currentTurnNumber = <%= Game.current.try(:current_turn_number) || 0 %>;
   var gamePieces = <%= JSON.pretty_generate( @game_data ).html_safe %>;
 </script>
 
