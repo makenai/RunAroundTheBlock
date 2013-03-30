@@ -40,8 +40,7 @@ class GamePiece < ActiveRecord::Base
   alias_method :last_turn, :todays_turn
 
   def do_turn(turn_number = current_turn_number)
-    turn = get_turn(turn_number) || create_turn(turn_number)
-    turn.process_bonuses(last_space + turn.spaces)
+    turn = get_turn( turn_number ) || create_turn( turn_number )
   end
 
   def finished?

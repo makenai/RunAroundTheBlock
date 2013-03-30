@@ -2,11 +2,10 @@ class Game < ActiveRecord::Base
   attr_accessible :current_turn_number, :ended_at, :start_at, :winner_game_piece_id
   has_many :game_pieces
 
-  BONUS_SPACES = [3, 7, 13, 17, 23]
+  BONUS_SPACES = [ 3, 7, 13, 17, 23 ]
   DEMO_FLAG = true
   DEMO_GAME_PIECES = GamePiece::TEAMS.sample(2)
   BOARD_SPACES = 26
-
 
   def self.current
     game = Game.where( winner_game_piece_id: nil ).order( 'start_at desc' ).first || Game.create( start_at: Time.now, current_turn_number: 0 )
@@ -53,7 +52,7 @@ class Game < ActiveRecord::Base
     game.save
 
     game_pieces.each do |game_piece|
-      game_piece.do_turn(game.current_turn_number)
+      game_piece.do_turn( game.current_turn_number )
       if game_piece.finished?
         game.crossed_finish(game_piece)
         break
@@ -75,7 +74,7 @@ class Game < ActiveRecord::Base
     game_id = self.id
     for i in 0...Game::DEMO_GAME_PIECES.count
       name = Game::DEMO_GAME_PIECES[i][:name]
-      game_piece = GamePiece.create( game_id: game_id, name: name )
+      game_piece = GamePiece.create( game_id: game_id, name: name, color: Game::DEMO_GAME_PIECES[i][:color] )
       user = User.order("RANDOM()").first
       #if user.game_pieces.where(game_id: game_id).count == 0
         player = Player.create( user_id: user.id, game_piece_id: game_piece.id, turn_joined: 0 )
