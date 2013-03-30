@@ -1,0 +1,40 @@
+.spinner-container {
+	position: absolute;
+	top: 875px;
+	left: 275px;
+	text-align: center;
+	width: 250px;
+	background: #CCC;
+	overflow: hidden;
+	font-size: 1.5em;
+	display: none;
+}
+
+.spinner-container .spinners {
+	margin-top: 3px;
+	width: 250px;
+	height: 110px;
+	border-top: 1px solid #222;
+	overflow: hidden;
+}
+
+.spinners .arrow { 
+	position: absolute; 
+	top: 73px; 
+	left: 3px; 
+	z-index: 100;
+}
+
+.spinners .spinner { 
+	margin: 5px auto;
+	background: #EEE; 
+	height: 30px;
+	width: 244px;
+	overflow: hidden;
+}
+
+.spinner.offset { 
+	position: relative; 
+	left: 0px;
+	top: -18px;
+}
