@@ -2,6 +2,7 @@ class Bonus < ActiveRecord::Base
   attr_accessible :bonus_type, :description, :player_id, :spaces, :turn_id, :mileage
   self.table_name = "bonuses"
   belongs_to :turn
+  belongs_to :player
 
     EVENTS = [
       # Good things
@@ -26,6 +27,20 @@ class Bonus < ActiveRecord::Base
 
    def self.get_event
     EVENTS.sample(1).first
+   end
+
+   def to_hash
+    hash = {
+      spaces: self.spaces,
+      mileage: self.mileage || 0,
+      description: self.description,
+      type: self.bonus_type
+    }
+    if self.player.present?
+      hash[:player_id] = self.player_id
+      hash[:player_name] = self.player.user.name
+    end
+    hash
    end
 
 end
