@@ -13,25 +13,29 @@
 
 <% else %>
   <div id="board">
-    <div id="space0"></div>
-    <% 26.times do |i| %>
-      <div id="space<%= i + 1 %>" class="<%= Game.space_classes i %>"></div>
+    <div id="spaces">
+    <% 27.times do |i| %>
+      <div id="space<%= i %>" class="<%= Game.space_classes i %>"></div>
     <% end %>
+    </div>
+    <% @game_pieces.each do |game_piece| %>
+      <div id="gp<%= game_piece.id %>" class="marker color<%= game_piece.color %>"><%= game_piece.name %></div>
+    <% end %>    
+    <div class="spinner-container">
+      <div class="title">Hero Spinner</div>
+      <div class="spinners">
+        <div class="arrow">&gt;</div >
+        <div class="spinner top">top</div>
+        <div class="spinner mid">long long long long long</div>
+        <div class="spinner bot">bottom</div>
+        <div class="spinner bel">below</div>
+      </div>
+    </div>
+    <div id="event-card"></div>  
+    <div id="card-modal" class="dialog">
+      <h2></h2>
+      <div class="card"></div>
+    </div>
   </div>
-
-  <% @game_pieces.each do |game_piece| %>
-    <div id="gp<%= game_piece.id %>" class="marker color<%= game_piece.color %>"><%= game_piece.name %></div>
-  <% end %>
-
 <% end %>
 
-<div class="spinner-container">
-  <div class="title">Hero Spinner</div>
-  <div class="spinners">
-    <div class="arrow">&gt;</div >
-    <div class="spinner top">top</div>
-    <div class="spinner mid">long long long long long</div>
-    <div class="spinner bot">bottom</div>
-    <div class="spinner bel">below</div>
-  </div>
-</div>

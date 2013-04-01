@@ -9,22 +9,21 @@
     background-repeat: no-repeat;
     position: relative;
 
-    div {
+    #spaces div {
       width: 136px;
       height: 135px;
-      outline: 1px solid red;
       position: absolute;
     }
-}
 
-.marker {
-  height: 90px;
-  width: 75px;
-  background-image: url('markers.png');
-  background-repeat: no-repeat;
-  background-position: 0 0;
-  text-indent: -9999px;
-  position: absolute;
+    div.marker {
+      height: 90px;
+      width: 75px;
+      background-image: url('markers.png');
+      background-repeat: no-repeat;
+      background-position: 0 0;
+      text-indent: -9999px;
+      position: absolute;
+    }
 }
 
 .colorred {
@@ -182,6 +181,52 @@
   background: yellow;
   opacity: .1;
   filter:alpha(opacity=10);
+}
+
+.dialog {
+  background-color: #edebe0;
+  width: 450px;
+  height: 200px;
+  padding: 10px;
+  border: 3px solid #e2dfc6;
+  position: absolute;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  top: 250px;
+  left: 287px;
+  h2 {
+    color: #999999;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  display: none;
+}
+
+#card-modal {
+  div.card {
+    color: white;
+    width: 259px;
+    height: 121px;
+    background: url(/assets/card.png);
+    text-align: center;
+    margin: auto;
+    padding: 20px;
+    margin-top: 10px;
+    -webkit-transform:rotate(-5deg);
+    -moz-transform:rotate(-5deg)
+  }
+}
+
+#event-card {
+  position: absolute;
+  top: 860px;
+  left: 30px;
+  width: 237px;
+  height: 128px;
+  background: url(/assets/event-card.png);
 }
 
 table {
