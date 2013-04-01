@@ -1,7 +1,3 @@
-$(document).ready(function() {
-	doTestSpin();
-});
-
 var SPINNER_NUM_SLIDES = 50, SPINNER_RATE = 50;
 
 function doTestSpin() {

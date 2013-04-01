@@ -40,19 +40,26 @@ $(document).ready(function() {
         });
     }
 
+    function showWheel( bonus, gp, callback ) {
+        var players = [];
+        $.each( gp.players, function( i, player ) {
+            players.push( player.name );
+        });
+        spinWithStop( players, bonus.player_name );
+    }
+
     function animateGamePieces() {
         for (var i = 0, gpLen = gamePieces.length; i < gpLen; i += 1) {
             var gp = gamePieces[i];
             animateGamePiece( gp, function( gp ) {
                 $.each( gp.bonuses, function( i, bonus ) {
                     if ( bonus.type == 'wheel_of_fate' ) {
-                        showWheel( bonus, function() {
+                        showWheel( bonus, gp, function() {
                             var newSpace = bonus.spaces + gp.currentSpace;
                             moveMarkerTo( gp, newSpace );
                         });
                     }
                     if ( bonus.type == 'card' ) {
-                        return;
                         showCard( bonus, function() {
                             var newSpace = bonus.spaces + gp.currentSpace;
                             moveMarkerTo( gp, newSpace );                            
