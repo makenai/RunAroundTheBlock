@@ -1,6 +1,6 @@
 .spinner-container {
 	position: absolute;
-	top: 875px;
+	top: 865px;
 	left: 275px;
 	text-align: center;
 	width: 250px;
@@ -8,19 +8,21 @@
 	overflow: hidden;
 	font-size: 1.5em;
 	display: none;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
 }
 
 .spinner-container .spinners {
 	margin-top: 3px;
 	width: 250px;
-	height: 110px;
-	border-top: 1px solid #222;
+	height: 118px;
+	border-top: 2px solid #888;
 	overflow: hidden;
 }
 
 .spinners .arrow { 
 	position: absolute; 
-	top: 73px; 
+	top: 78px; 
 	left: 3px; 
 	z-index: 100;
 }
@@ -31,7 +33,13 @@
 	height: 30px;
 	width: 244px;
 	overflow: hidden;
+	font-size: .85em;
+	vertical-align: middle;
+	padding-top: .2em;
 }
+
+.spinner.mid, .spinner.offset.bottom { font-size: 1em; padding-top: 0em; }
+.spinner.offset.mid { font-size: .85em; padding-top: .2em; }
 
 .spinner.offset { 
 	position: relative; 

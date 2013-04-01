@@ -2,7 +2,7 @@ $(document).ready(function() {
 	doTestSpin();
 });
 
-var SPINNER_NUM_SLIDES = 20, SPINNER_RATE = 100;
+var SPINNER_NUM_SLIDES = 50, SPINNER_RATE = 50;
 
 function doTestSpin() {
 	spinWithStop(["Pawel", "Susan", "Amelia", "Shaun", "Darshan"], "Pawel");
