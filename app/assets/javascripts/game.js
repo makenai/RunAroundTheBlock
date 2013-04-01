@@ -1,7 +1,16 @@
 $(document).ready(function() {
 
-     console.log("gamepieces",gamePieces);
+    // var EVENT_QUEUE = [];
 
+    // function nextEvent( callback ) {
+    //     if ( EVENT_QUEUE.length == 0 ) {
+    //         if ( callback )
+    //             callback();
+    //     } else {
+    //         EVENT_QUEUE.push( callback );
+    //         var currentEvent
+    //     }
+    // }
 
     function setupGamePieces() {
         // loop through the start moving all of the pieces
@@ -40,12 +49,18 @@ $(document).ready(function() {
         });
     }
 
+    function showWheelCard( bonus ) {
+
+    }
+
     function showWheel( bonus, gp, callback ) {
         var players = [];
         $.each( gp.players, function( i, player ) {
             players.push( player.name );
         });
-        spinWithStop( players, bonus.player_name );
+        spinWithStop( players, bonus.player_name, function() {
+            showWheelCard( bonus );
+        });
     }
 
     function animateGamePieces() {
@@ -60,6 +75,7 @@ $(document).ready(function() {
                         });
                     }
                     if ( bonus.type == 'card' ) {
+                        return;
                         showCard( bonus, function() {
                             var newSpace = bonus.spaces + gp.currentSpace;
                             moveMarkerTo( gp, newSpace );                            
