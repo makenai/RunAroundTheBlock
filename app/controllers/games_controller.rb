@@ -14,7 +14,7 @@ class GamesController < ApplicationController
         starting_space: turn.try(:starting_space) || 0,
         spaces: turn.try(:spaces) || 0,
         is_current_user: game_piece.users.include?( current_user ),
-        bonuses: turn.bonuses.collect { |b| b.to_hash },
+        bonuses: turn ? turn.bonuses.collect { |b| b.to_hash } : [],
         players: game_piece.players.collect { |p| { name: p.user.name, id: p.id } }
       }
       @game_data.push( data )
