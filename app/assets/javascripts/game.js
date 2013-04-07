@@ -1,16 +1,17 @@
 $(document).ready(function() {
 
-    // var EVENT_QUEUE = [];
+    var EVENT_QUEUE = [];
 
-    // function nextEvent( callback ) {
-    //     if ( EVENT_QUEUE.length == 0 ) {
-    //         if ( callback )
-    //             callback();
-    //     } else {
-    //         EVENT_QUEUE.push( callback );
-    //         var currentEvent
-    //     }
-    // }
+    function nextEvent() {
+        var currentEvent = EVENT_QUEUE.pop();
+        if ( currentEvent )
+            currentEvent();
+    }
+
+    function queueEvent( buttmonkey ) {
+        if ( buttmonkey )
+            EVENT_QUEUE.push( buttmonkey );
+    }
 
     function setupGamePieces() {
         // loop through the start moving all of the pieces
@@ -49,8 +50,9 @@ $(document).ready(function() {
         });
     }
 
-    function showWheelCard( bonus ) {
-
+    function showWheelCard( bonus, callback ) {
+        if ( callback )
+            callback();
     }
 
     function showWheel( bonus, gp, callback ) {
@@ -59,7 +61,7 @@ $(document).ready(function() {
             players.push( player.name );
         });
         spinWithStop( players, bonus.player_name, function() {
-            showWheelCard( bonus );
+            showWheelCard( bonus, callback );
         });
     }
 
@@ -68,28 +70,46 @@ $(document).ready(function() {
             var gp = gamePieces[i];
             animateGamePiece( gp, function( gp ) {
                 $.each( gp.bonuses, function( i, bonus ) {
+
                     if ( bonus.type == 'wheel_of_fate' ) {
-                        showWheel( bonus, gp, function() {
-                            var newSpace = bonus.spaces + gp.currentSpace;
-                            moveMarkerTo( gp, newSpace );
+                        queueEvent( function() {
+                            showWheel( bonus, gp, function() {
+                                var newSpace = bonus.spaces + gp.current_space;
+                                moveMarkerTo( gp, newSpace, nextEvent );
+                            });
                         });
                     }
                     if ( bonus.type == 'card' ) {
-                        return;
-                        showCard( bonus, function() {
-                            var newSpace = bonus.spaces + gp.currentSpace;
-                            moveMarkerTo( gp, newSpace );                            
+                        queueEvent( function() {
+                            showCard( bonus, function() {
+                                var newSpace = bonus.spaces + gp.current_space;
+                                moveMarkerTo( gp, newSpace, nextEvent );                            
+                            });
                         });
                     }
                 });
+                nextEvent();
             });
         }
     }
 
     function moveMarkerTo( gp, space, callback ) {
         var marker = $('#gp' + gp.id);
-        var endPos = findPosOfSpace( space );
-        marker.animate( endPos, 500, callback ); 
+        var step = function( i ) {
+            var endPos = findPosOfSpace( i );
+            var properties = { duration: 250 };
+            if ( i == space )
+                properties.complete = callback;
+            marker.animate( endPos, properties );
+            gp.current_space = space;
+        }
+        if ( space > gp.current_space ) {
+            for ( var i = gp.current_space; i <= space; i++ )
+                step( i );            
+        } else {
+            for ( var i = gp.current_space; i >= space; i-- )
+                step( i );                        
+        }
     }
 
     function animateGamePiece( gp, callback ) {
@@ -98,7 +118,6 @@ $(document).ready(function() {
             endSpace = 26;
         }
         moveMarkerTo( gp, endSpace, function() {
-            gp.currentSpace = endSpace;
             if ( callback ) 
                 callback(gp);
         });
