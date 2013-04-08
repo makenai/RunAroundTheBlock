@@ -2,7 +2,9 @@ class GamesController < ApplicationController
 
 
   def current
-    @game_pieces = Game.current.game_pieces
+    @game = Game.current
+    @game_data = @game.game_data( current_user )
+    @current_turn_number = @game.current_turn_number
   end
 
   def index

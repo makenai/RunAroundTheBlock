@@ -2,45 +2,81 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@mixin border_radius($tl: 5px, $tr: 5px, $br: 5px, $bl: 5px) {
+  -moz-border-radius: $tl $tr $br $bl;
+  -webkit-border-top-left-radius: $tl;
+  -webkit-border-top-right-radius: $tr;
+  -webkit-border-bottom-right-radius: $br;
+  -webkit-border-bottom-left-radius: $bl;
+  border-radius: $tl $tr $br $bl;
+}
+
+.bigButt {
+  @include border_radius(10px, 10px, 10px, 10px);
+  padding:15px 20px 15px 20px;
+  border: 2px solid #ce5257;
+  background: #e58e92;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e58e92), color-stop(50%,#ce6469), color-stop(51%,#b02e34), color-stop(100%,#b02e34)); 
+  background: -webkit-linear-gradient(top, #e58e92 0%,#ce6469 50%,#b02e34 51%,#b02e34 100%); 
+  color: #ffffff;
+  text-decoration:none;
+  font-size:20px;
+}
+
+.signOut {
+  position: absolute;
+  left: 1030px;
+  top: 20px;
+  padding:8px 20px 8px 20px;
+  z-index: 1000;
+}
+
+
+#wrap {
+  width:1270px;
+  text-align:left;
+  position:relative;
+  margin: 5px auto;
+}
+
+#frame {
+  width:1270px;
+  height:1256px;
+  position:relative;
+  background-image: url('frame.gif');
+  top:10px;
+}
+
 #board {
     height:1024px;
     width:1024px;
     background-image: url('board_w_squares.png');
     background-repeat: no-repeat;
     position: relative;
+    top:120px;
+    left:130px;
 
-    div {
-      width: 136px;
-      height: 135px;
-      outline: 1px solid red;
+    #spaces div {
+      width: 135px;
+      height: 134px;
       position: absolute;
     }
+
+    div.marker {
+      height: 90px;
+      width: 75px;
+      background-image: url('markers.png');
+      background-repeat: no-repeat;
+      background-position: 0 0;
+      text-indent: -9999px;
+      position: absolute;
+    }
+    div.colorred { background-position: 0 0; }
+    div.colorblue { background-position: 0 -110px; margin-left: 10px; margin-top: 10px; }
+    div.coloryellow { background-position: 0 -215px; margin-left: 20px; margin-top: 20px; }
+    div.colorgreen { background-position: 0 -320px; margin-left: 30px; margin-top: 30px; }
 }
 
-.marker {
-  height: 90px;
-  width: 75px;
-  background-image: url('markers.png');
-  background-repeat: no-repeat;
-  background-position: 0 0;
-  text-indent: -9999px;
-}
-
-.colorred {
-  background-position: 0 0;
-}
-
-.colorblue {
-  background-position: 0 -110px;
-}
-
-.coloryello {
-  background-position: 0 -215px;
-}
-
-.colorgreen {
-  background-position: 0 -320px;
-}
 
 #space0 {
   top: 20px;
@@ -176,6 +212,129 @@
   top: 869px;
   left: 586px;
 }
+
+.bonus-space {
+  background: rgba(255,253,89,0.2); 
+  filter:alpha(opacity=10);
+  background-image: url(/assets/event-marker.png);
+  background-repeat: no-repeat;
+  background-position: bottom right;
+
+}
+
+.dialog {
+  background-color: #edebe0;
+  width: 450px;
+  height: 200px;
+  padding: 10px;
+  border: 3px solid #e2dfc6;
+  position: absolute;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  top: 250px;
+  left: 287px;
+  h2, p {
+    color: #999999;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  display: none;
+}
+
+.no-ribbon {
+  .ribbon { display: none; }
+}
+
+
+#card-modal, #hero-modal {
+  div.card {
+    color: white;
+    width: 259px;
+    height: 121px;
+    background: url(/assets/card.png);
+    text-align: center;
+    margin: auto;
+    padding: 20px;
+    margin-top: 15px;
+    -webkit-transform:rotate(-5deg);
+    -moz-transform:rotate(-5deg);
+  }
+  div.card p {
+    color:#ffffff;
+  }
+}
+
+#hero-modal.dialog {
+  height: 260px;
+}
+
+#hero-modal .playerName {
+      font-size:26px;
+      color:#2c79d4;
+      margin:0px 0px 20px 0px;
+      padding:0px;
+}
+
+#hero-modal .compBox {
+  float:left;
+  height:100px;
+  width:120px;
+    h3 {
+      padding:0px;
+      margin:0px;
+      /*font-size:14px;*/
+    }
+    .mileage, .croc {
+      font-size:20px;
+      color:#2c79d4;
+    }
+    .croc {
+      padding-top:20px;
+      font-size: 30px;
+    }
+    .badcroc {
+      color: red;
+    }
+}
+
+#hero-modal .compWrap {
+  height: 110px;
+  margin-left:30px;
+  margin-bottom:10px;
+}
+
+#hero-modal .desc {
+  clear:both;      
+} 
+
+#event-card {
+  position: absolute;
+  top: 860px;
+  left: 30px;
+  width: 237px;
+  height: 128px;
+  background: url(/assets/event-card.png);
+}
+
+.ribbon {
+  position:absolute;
+  left:-13px;
+  top:-13px;
+}
+
+#nav-box {
+  width: 110px;
+  position: absolute;
+  right: 125px;
+  top: 70px;
+  text-align: center;
+  a { text-decoration: none; color: blue; }
+}
+
+span.disabled { color: #c0c0c0; }
 
 table {
   border: 1px solid black;

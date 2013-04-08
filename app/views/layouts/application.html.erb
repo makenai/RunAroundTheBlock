@@ -8,19 +8,19 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+	<div id="wrap">
 
+		<% if current_user -%>
+		  <!-- Signed in as <%= current_user.name %> -->
+		  <%= link_to 'Sign out', signout_path, :class => "bigButt signOut" %>
+		<% else %>
+		  <!-- <%= link_to 'Sign in with Runkeeper', '/auth/runkeeper', :class => "bigButt" %> -->
+		<% end -%>
 
-<% if current_user -%>
-  <!-- Signed in as <%= current_user.name %> -->
-  <%= link_to 'Sign out', signout_path %>
-<% else %>
-  <!-- <%= link_to 'Sign in with Runkeeper', '/auth/runkeeper' %> -->
-<% end -%>
+		<div id='content'>
+		  <%= yield %>
+		</div>
 
-
-<div id='content'>
-  <%= yield %>
-</div>
-
+	</div>
 </body>
 </html>

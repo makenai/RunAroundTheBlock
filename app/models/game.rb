@@ -2,13 +2,26 @@ class Game < ActiveRecord::Base
   attr_accessible :current_turn_number, :ended_at, :start_at, :winner_game_piece_id
   has_many :game_pieces
 
+  BONUS_SPACES = [ 3, 7, 13, 17, 23 ]
   DEMO_FLAG = true
-  DEMO_GAME_PIECES = [GamePiece::TEAMS[0], GamePiece::TEAMS[2]]
+  BOARD_SPACES = 26
+  PLAYER_NAMES = [
+    'Amelia Smith',
+    'Shaun Haber',
+    'Alice Han',
+    'Susan Hinton',
+    'Darshan Bhatt',
+    'Chris Peak'
+  ]
 
-  if DEMO_FLAG
-    BOARD_SPACES = 26
-  else
-    BOARD_SPACES = 26
+  def self.initialize_other_users
+    PLAYER_NAMES.each do |name|
+      User.create({
+        name: name,
+        nickname: name,
+        location: 'Las Vegas'
+      })
+    end
   end
 
   def self.current
@@ -20,11 +33,39 @@ class Game < ActiveRecord::Base
     game
   end
 
+  def game_data(current_user, turn_number=nil)
+    game_data = []
+    self.game_pieces.each do |game_piece|
+      turn = turn_number ? game_piece.turns.where( turn_number: turn_number ).first : game_piece.todays_turn
+      data = {
+        id: game_piece.id,
+        name: game_piece.name,
+        color: game_piece.color,
+        starting_space: turn.try(:starting_space) || 0,
+        current_space: turn.try(:starting_space) || 0,
+        spaces: turn.try(:spaces) || 0,
+        is_current_user: game_piece.users.include?( current_user ),
+        bonuses: turn ? turn.bonuses.collect { |b| b.to_hash } : [],
+        players: game_piece.players.collect { |p| { name: p.user.name, id: p.id } }
+      }
+      game_data.push( data )
+    end
+    game_data
+  end  
+
+  def self.space_classes(i)
+    classes = ""
+    if Game::BONUS_SPACES.include? (i)
+      classes = "bonus-space"
+    end
+    "#{classes}"
+  end
+
   def self.run
     game = Game.current
 
     # update all of the game pieces and check for winner
-    game_pieces = game.game_pieces;
+    game_pieces = game.game_pieces
 
     # trip out if there aren't any game pieces, no point wasting turns
     if game_pieces.count == 0
@@ -48,7 +89,7 @@ class Game < ActiveRecord::Base
     game.save
 
     game_pieces.each do |game_piece|
-      game_piece.do_turn(game.current_turn_number)
+      game_piece.do_turn( game.current_turn_number )
       if game_piece.finished?
         game.crossed_finish(game_piece)
         break
@@ -67,14 +108,19 @@ class Game < ActiveRecord::Base
   end
 
   def assign_random_game_pieces
-    game_id = self.id
-    for i in 0...Game::DEMO_GAME_PIECES.count
-      name = Game::DEMO_GAME_PIECES[i][:name]
-      game_piece = GamePiece.create( game_id: game_id, name: name )
-      user = User.order("RANDOM()").first
-      if user.game_pieces.where(game_id: game_id).count == 0
-        player = Player.create( user_id: user.id, game_piece_id: game_piece.id, turn_joined: 0 )
-      end
+    self.game_pieces.destroy_all
+    GamePiece::TEAMS.sample(3).each do |team|
+      game_piece = GamePiece.create( game_id: self.id, name: team[:name], color: team[:color] )
+    end
+
+    users = User.all.shuffle
+    game_pieces = self.game_pieces.all.shuffle
+
+    while ( !users.empty? ) do
+      user = users.pop
+      game_piece = game_pieces.shift
+      player = Player.create( user_id: user.id, game_piece_id: game_piece.id, turn_joined: 0 )
+      game_pieces.push( game_piece )  
     end
   end
 end

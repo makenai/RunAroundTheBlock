@@ -1,22 +1,61 @@
+<script type="text/javascript">
+  var currentTurnNumber = <%= @current_turn_number %>;
+  var gamePieces = <%= JSON.pretty_generate( @game_data ).html_safe %>;
+</script>
+
 <% if !current_user %>
 
-	<%= link_to 'Join This Game', '/auth/runkeeper' %>
+	<%= link_to 'Join This Game', '/auth/runkeeper', :class => "bigButt" %>
 
 <% elsif !current_user.playing_game?  %>
 
-	<%= link_to 'Join This Game', new_player_path %>
+	<%= link_to 'Join This Game', new_player_path, :class => "bigButt" %>
 
 <% else %>
-
-  <div id="board">
-    <div id="space0"></div>
-    <% 26.times do |i| %>
-      <div id="space<%= i + 1 %>"></div>
-    <% end %>
+  <div id="frame">
+    <div id="nav-box">
+      <% if @current_turn_number > 1 %>
+        <%= link_to '&#9664;'.html_safe, game_turn_path( @game.id, @current_turn_number - 1 ) %>
+      <% else %>
+        <span class="disabled">&#9664;</span>
+      <% end %>
+      Turn <%= @current_turn_number %>
+      <% if @current_turn_number < @game.current_turn_number %>
+        <%= link_to '&#9654;'.html_safe, game_turn_path( @game.id, @current_turn_number + 1 ) %>
+      <% else %>
+        <span class="disabled">&#9654;</span>
+      <% end %>
+    </div>
+    <div id="board">
+      <div id="spaces">
+      <% 27.times do |i| %>
+        <div id="space<%= i %>" class="<%= Game.space_classes i %>"></div>
+      <% end %>
+      </div>
+      <% @game.game_pieces.each do |game_piece| %>
+        <div id="gp<%= game_piece.id %>" class="marker color<%= game_piece.color %>"><%= game_piece.name %></div>
+      <% end %>
+      <div class="spinner-container">
+        <div class="title">Hero Spinner</div>
+        <div class="spinners">
+          <div class="arrow">&gt;</div >
+          <div class="spinner top">top</div>
+          <div class="spinner mid">long long long long long</div>
+          <div class="spinner bot">bottom</div>
+          <div class="spinner bel">below</div>
+        </div>
+      </div>
+      <div id="event-card"></div>  
+      <div id="card-modal" class="dialog">
+        <img src="<%= image_path("bonus_ribbon.png") %>" class="ribbon"/>
+        <h2>Your team got an event card!</h2>
+        <div class="card"></div>
+      </div>
+      <div id="hero-modal" class="dialog">
+        <img src="<%= image_path("bonus_ribbon.png") %>" class="ribbon"/>
+        <h2>The chosen one is...</h2>
+        <p></p>
+      </div>
+    </div>
   </div>
-
-  <% @game_pieces.each do |game_piece| %>
-    <div id="gp<%= game_piece.id %>" class="marker color<%= game_piece.color %>"><%= game_piece.name %></div>
-  <% end %>
-
 <% end %>

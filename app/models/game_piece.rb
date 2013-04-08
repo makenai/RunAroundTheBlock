@@ -3,6 +3,7 @@ class GamePiece < ActiveRecord::Base
   attr_accessible :game_id, :image_url, :color, :name
   belongs_to :game
   has_many :players
+  has_many :users, :through => :players
   has_many :turns
 
   TEAMS = [
@@ -39,8 +40,7 @@ class GamePiece < ActiveRecord::Base
   alias_method :last_turn, :todays_turn
 
   def do_turn(turn_number = current_turn_number)
-    turn = get_turn(turn_number) || create_turn(turn_number)
-    turn.process_bonuses(last_space + turn.spaces)
+    turn = get_turn( turn_number ) || create_turn( turn_number )
   end
 
   def finished?
@@ -67,6 +67,7 @@ class GamePiece < ActiveRecord::Base
   def create_turn(turn_number)
     self.turns.create! do |turn|
       turn.turn_number = turn_number
+      turn.starting_space = self.current_space
       turn.spaces = some_algorithm(turn_number)
     end
   end
