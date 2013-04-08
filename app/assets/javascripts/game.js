@@ -2,15 +2,19 @@ $(document).ready(function() {
 
     var EVENT_QUEUE = [];
 
-    function nextEvent() {
-        var currentEvent = EVENT_QUEUE.pop();
+    function nextEvent( queue ) {
+        console.log( 'next ' + queue ); 
+        var currentEvent = EVENT_QUEUE[ queue ].shift();
         if ( currentEvent )
-            currentEvent();
+            currentEvent();            
     }
 
-    function queueEvent( buttmonkey ) {
+    function queueEvent( queue, buttmonkey ) {
+        console.log( 'queue ' + queue ); 
+        if ( EVENT_QUEUE[ queue ] == null ) 
+            EVENT_QUEUE[ queue ] = [];
         if ( buttmonkey )
-            EVENT_QUEUE.push( buttmonkey );
+            EVENT_QUEUE[ queue ].push( buttmonkey );
     }
 
     function setupGamePieces() {
@@ -84,30 +88,37 @@ $(document).ready(function() {
 
     function animateGamePieces() {
         for (var i = 0, gpLen = gamePieces.length; i < gpLen; i += 1) {
-            var gp = gamePieces[i];
-            animateGamePiece( gp, function( gp ) {
-                $.each( gp.bonuses, function( i, bonus ) {
+            (function(i) {
+                queueEvent( 2, function() {
+                    var gp = gamePieces[i];
+                    animateGamePiece( gp, function( gp ) {
 
-                    if ( bonus.type == 'wheel_of_fate' ) {
-                        queueEvent( function() {
-                            showWheel( bonus, gp, function() {
-                                var newSpace = bonus.spaces + gp.current_space;
-                                moveMarkerTo( gp, newSpace, nextEvent );
-                            });
+                        $.each( gp.bonuses, function( i, bonus ) {
+
+                            if ( bonus.type == 'wheel_of_fate' ) {
+                                queueEvent( 1, function() {
+                                    showWheel( bonus, gp, function() {
+                                        var newSpace = bonus.spaces + gp.current_space;
+                                        moveMarkerTo( gp, newSpace, function() { nextEvent(1) } );
+                                    });
+                                });
+                            }
+                            if ( bonus.type == 'card' ) {
+                                queueEvent( 1, function() {
+                                    showCard( bonus, function() {
+                                        var newSpace = bonus.spaces + gp.current_space;
+                                        moveMarkerTo( gp, newSpace, function() { nextEvent(1) } );                            
+                                    });
+                                });
+                            }
                         });
-                    }
-                    if ( bonus.type == 'card' ) {
-                        queueEvent( function() {
-                            showCard( bonus, function() {
-                                var newSpace = bonus.spaces + gp.current_space;
-                                moveMarkerTo( gp, newSpace, nextEvent );                            
-                            });
-                        });
-                    }
+                        queueEvent( 1, function() { nextEvent(2); });
+                        nextEvent( 1 );
+                    });
                 });
-                nextEvent();
-            });
+            })(i);
         }
+        nextEvent( 2 );
     }
 
     function moveMarkerTo( gp, space, callback ) {
