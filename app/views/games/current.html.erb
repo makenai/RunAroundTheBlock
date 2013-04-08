@@ -34,7 +34,7 @@
       </div>
       <% @game.game_pieces.each do |game_piece| %>
         <div id="gp<%= game_piece.id %>" class="marker color<%= game_piece.color %>"><%= game_piece.name %></div>
-      <% end %>    
+      <% end %>
       <div class="spinner-container">
         <div class="title">Hero Spinner</div>
         <div class="spinners">

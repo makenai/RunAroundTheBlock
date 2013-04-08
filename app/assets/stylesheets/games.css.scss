@@ -57,8 +57,8 @@
     left:130px;
 
     #spaces div {
-      width: 136px;
-      height: 135px;
+      width: 135px;
+      height: 134px;
       position: absolute;
     }
 
@@ -214,9 +214,12 @@
 }
 
 .bonus-space {
-  background: yellow;
-  opacity: .1;
+  background: rgba(255,253,89,0.2); 
   filter:alpha(opacity=10);
+  background-image: url(/assets/event-marker.png);
+  background-repeat: no-repeat;
+  background-position: bottom right;
+
 }
 
 .dialog {
@@ -238,8 +241,11 @@
     padding: 0;
     text-align: center;
   }
-
   display: none;
+}
+
+.no-ribbon {
+  .ribbon { display: none; }
 }
 
 
@@ -288,6 +294,9 @@
     .croc {
       padding-top:20px;
       font-size: 30px;
+    }
+    .badcroc {
+      color: red;
     }
 }
 
