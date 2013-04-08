@@ -2,7 +2,7 @@
   var currentTurnNumber = <%= Game.current.try(:current_turn_number) || 0 %>;
   var gamePieces = <%= JSON.pretty_generate( @game_data ).html_safe %>;
 </script>
-<div id="header">
+
 <% if !current_user %>
 
 	<%= link_to 'Join This Game', '/auth/runkeeper', :class => "bigButt" %>
@@ -10,7 +10,6 @@
 <% elsif !current_user.playing_game?  %>
 
 	<%= link_to 'Join This Game', new_player_path, :class => "bigButt" %>
-</div>
 
 <% else %>
   <div id="frame">
@@ -41,4 +40,3 @@
     </div>
   </div>
 <% end %>
-
