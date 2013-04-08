@@ -71,23 +71,12 @@
       text-indent: -9999px;
       position: absolute;
     }
+    div.colorred { background-position: 0 0; }
+    div.colorblue { background-position: 0 -110px; margin-left: 10px; margin-top: 10px; }
+    div.coloryellow { background-position: 0 -215px; margin-left: 20px; margin-top: 20px; }
+    div.colorgreen { background-position: 0 -320px; margin-left: 30px; margin-top: 30px; }
 }
 
-.colorred {
-  background-position: 0 0;
-}
-
-.colorblue {
-  background-position: 0 -110px;
-}
-
-.coloryellow {
-  background-position: 0 -215px;
-}
-
-.colorgreen {
-  background-position: 0 -320px;
-}
 
 #space0 {
   top: 20px;

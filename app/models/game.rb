@@ -4,7 +4,6 @@ class Game < ActiveRecord::Base
 
   BONUS_SPACES = [ 3, 7, 13, 17, 23 ]
   DEMO_FLAG = true
-  DEMO_GAME_PIECES = GamePiece::TEAMS.sample(2)
   BOARD_SPACES = 26
 
   def self.current
@@ -91,14 +90,13 @@ class Game < ActiveRecord::Base
   end
 
   def assign_random_game_pieces
-    game_id = self.id
-    for i in 0...Game::DEMO_GAME_PIECES.count
-      name = Game::DEMO_GAME_PIECES[i][:name]
-      game_piece = GamePiece.create( game_id: game_id, name: name, color: Game::DEMO_GAME_PIECES[i][:color] )
-      user = User.order("RANDOM()").first
-      #if user.game_pieces.where(game_id: game_id).count == 0
-        player = Player.create( user_id: user.id, game_piece_id: game_piece.id, turn_joined: 0 )
-      #end
+    users = User.all
+    self.game_pieces.destroy_all
+    GamePiece::TEAMS.sample(3).each do |team|
+      user = users.sample(1).first
+      p user
+      game_piece = GamePiece.create( game_id: self.id, name: team[:name], color: team[:color] )
+      player = Player.create( user_id: user.id, game_piece_id: game_piece.id, turn_joined: 0 )
     end
   end
 end
