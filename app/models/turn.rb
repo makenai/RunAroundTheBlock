@@ -15,6 +15,14 @@ class Turn < ActiveRecord::Base
           :spaces      => 1,
           :mileage     => mileage
         )
+      else
+        self.bonuses << Bonus.create(
+          :bonus_type  => 'wheel_of_fate',
+          :description => 'Boo!', 
+          :player_id   => random_player.id,
+          :spaces      => 0,
+          :mileage     => mileage
+        )
       end
     end
 

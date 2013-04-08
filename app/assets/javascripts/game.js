@@ -25,6 +25,7 @@ $(document).ready(function() {
             var spacePos = findPosOfSpace( gp.starting_space );
             marker.css( spacePos );
         }
+
     }
 
     function findPosOfSpace( space ) {
@@ -92,18 +93,28 @@ $(document).ready(function() {
 
                                 if ( bonus.type == 'wheel_of_fate' ) {
                                     queueEvent( 1, function() {
-                                        showWheel( bonus, gp, function() {
+                                        if ( gp.is_current_user ) {
+                                            showWheel( bonus, gp, function() {
+                                                var newSpace = bonus.spaces + gp.current_space;
+                                                moveMarkerTo( gp, newSpace, function() { nextEvent(1) } );
+                                            });
+                                        } else {
                                             var newSpace = bonus.spaces + gp.current_space;
-                                            moveMarkerTo( gp, newSpace, function() { nextEvent(1) } );
-                                        });
+                                            moveMarkerTo( gp, newSpace, function() { nextEvent(1) } );                                                
+                                        }
                                     });
                                 }
                                 if ( bonus.type == 'card' ) {
                                     queueEvent( 1, function() {
-                                        showCard( bonus, function() {
+                                        if ( gp.is_current_user ) {
+                                            showCard( bonus, function() {
+                                                var newSpace = bonus.spaces + gp.current_space;
+                                                moveMarkerTo( gp, newSpace, function() { nextEvent(1) } );                            
+                                            });
+                                        } else {
                                             var newSpace = bonus.spaces + gp.current_space;
                                             moveMarkerTo( gp, newSpace, function() { nextEvent(1) } );                            
-                                        });
+                                        }
                                     });
                                 }
                             });
