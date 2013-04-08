@@ -3,18 +3,16 @@ $(document).ready(function() {
     var EVENT_QUEUE = [];
 
     function nextEvent( queue ) {
-        console.log( 'next ' + queue ); 
-        var currentEvent = EVENT_QUEUE[ queue ].shift();
+        var currentEvent = EVENT_QUEUE[ queue ].pop();
         if ( currentEvent )
             currentEvent();            
     }
 
     function queueEvent( queue, buttmonkey ) {
-        console.log( 'queue ' + queue ); 
         if ( EVENT_QUEUE[ queue ] == null ) 
             EVENT_QUEUE[ queue ] = [];
         if ( buttmonkey )
-            EVENT_QUEUE[ queue ].push( buttmonkey );
+            EVENT_QUEUE[ queue ].unshift( buttmonkey );
     }
 
     function setupGamePieces() {
@@ -55,8 +53,6 @@ $(document).ready(function() {
     }
 
     function showWheelCard( bonus, callback ) {
-        if ( callback )
-            callback();
         var team_average = 0;
         var description = '<h3 class="playerName">' + bonus.player_name + '</h3>';
         // faking it as I can't see any data I could use as team average
@@ -90,31 +86,32 @@ $(document).ready(function() {
         for (var i = 0, gpLen = gamePieces.length; i < gpLen; i += 1) {
             (function(i) {
                 queueEvent( 2, function() {
-                    var gp = gamePieces[i];
-                    animateGamePiece( gp, function( gp ) {
+                    (function (gp) {
+                        animateGamePiece( gp, function( gp ) {
 
-                        $.each( gp.bonuses, function( i, bonus ) {
+                            $.each( gp.bonuses, function( i, bonus ) {
 
-                            if ( bonus.type == 'wheel_of_fate' ) {
-                                queueEvent( 1, function() {
-                                    showWheel( bonus, gp, function() {
-                                        var newSpace = bonus.spaces + gp.current_space;
-                                        moveMarkerTo( gp, newSpace, function() { nextEvent(1) } );
+                                if ( bonus.type == 'wheel_of_fate' ) {
+                                    queueEvent( 1, function() {
+                                        showWheel( bonus, gp, function() {
+                                            var newSpace = bonus.spaces + gp.current_space;
+                                            moveMarkerTo( gp, newSpace, function() { nextEvent(1) } );
+                                        });
                                     });
-                                });
-                            }
-                            if ( bonus.type == 'card' ) {
-                                queueEvent( 1, function() {
-                                    showCard( bonus, function() {
-                                        var newSpace = bonus.spaces + gp.current_space;
-                                        moveMarkerTo( gp, newSpace, function() { nextEvent(1) } );                            
+                                }
+                                if ( bonus.type == 'card' ) {
+                                    queueEvent( 1, function() {
+                                        showCard( bonus, function() {
+                                            var newSpace = bonus.spaces + gp.current_space;
+                                            moveMarkerTo( gp, newSpace, function() { nextEvent(1) } );                            
+                                        });
                                     });
-                                });
-                            }
+                                }
+                            });
+                            queueEvent( 1, function() { nextEvent(2); });
+                            nextEvent( 1 );
                         });
-                        queueEvent( 1, function() { nextEvent(2); });
-                        nextEvent( 1 );
-                    });
+                    })(gamePieces[i]);
                 });
             })(i);
         }
