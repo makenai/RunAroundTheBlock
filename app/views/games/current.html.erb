@@ -1,5 +1,5 @@
 <script type="text/javascript">
-  var currentTurnNumber = <%= Game.current.try(:current_turn_number) || 0 %>;
+  var currentTurnNumber = <%= @current_turn_number %>;
   var gamePieces = <%= JSON.pretty_generate( @game_data ).html_safe %>;
 </script>
 
@@ -13,13 +13,26 @@
 
 <% else %>
   <div id="frame">
+    <div id="nav-box">
+      <% if @current_turn_number > 1 %>
+        <%= link_to '&#9664;'.html_safe, game_turn_path( @game.id, @current_turn_number - 1 ) %>
+      <% else %>
+        <span class="disabled">&#9664;</span>
+      <% end %>
+      Turn <%= @current_turn_number %>
+      <% if @current_turn_number < @game.current_turn_number %>
+        <%= link_to '&#9654;'.html_safe, game_turn_path( @game.id, @current_turn_number + 1 ) %>
+      <% else %>
+        <span class="disabled">&#9654;</span>
+      <% end %>
+    </div>
     <div id="board">
       <div id="spaces">
       <% 27.times do |i| %>
         <div id="space<%= i %>" class="<%= Game.space_classes i %>"></div>
       <% end %>
       </div>
-      <% @game_pieces.each do |game_piece| %>
+      <% @game.game_pieces.each do |game_piece| %>
         <div id="gp<%= game_piece.id %>" class="marker color<%= game_piece.color %>"><%= game_piece.name %></div>
       <% end %>    
       <div class="spinner-container">

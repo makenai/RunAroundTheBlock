@@ -24,9 +24,11 @@
 }
 
 .signOut {
-  position: relative;
-  margin-left:1030px;
+  position: absolute;
+  left: 1030px;
+  top: 20px;
   padding:8px 20px 8px 20px;
+  z-index: 1000;
 }
 
 
@@ -273,6 +275,17 @@
   height: 128px;
   background: url(/assets/event-card.png);
 }
+
+#nav-box {
+  width: 110px;
+  position: absolute;
+  right: 125px;
+  top: 70px;
+  text-align: center;
+  a { text-decoration: none; color: blue; }
+}
+
+span.disabled { color: #c0c0c0; }
 
 table {
   border: 1px solid black;

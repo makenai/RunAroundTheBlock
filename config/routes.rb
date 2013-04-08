@@ -7,14 +7,12 @@ RunAroundTheBlock::Application.routes.draw do
 
   resources :bonus
 
-
-  resources :turns
-
-
   resources :game_pieces
 
 
-  resources :games
+  resources :games do
+    resources :turns
+  end
 
   resources :demo
 
