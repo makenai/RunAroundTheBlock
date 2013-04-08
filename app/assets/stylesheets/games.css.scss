@@ -2,12 +2,45 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@mixin border_radius($tl: 5px, $tr: 5px, $br: 5px, $bl: 5px) {
+  -moz-border-radius: $tl $tr $br $bl;
+  -webkit-border-top-left-radius: $tl;
+  -webkit-border-top-right-radius: $tr;
+  -webkit-border-bottom-right-radius: $br;
+  -webkit-border-bottom-left-radius: $bl;
+  border-radius: $tl $tr $br $bl;
+}
+
+.bigButt {
+  @include border_radius(10px, 10px, 10px, 10px);
+  padding:15px 20px 15px 20px;
+  border: 2px solid #ce5257;
+  background: #e58e92;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e58e92), color-stop(50%,#ce6469), color-stop(51%,#b02e34), color-stop(100%,#b02e34)); 
+  background: -webkit-linear-gradient(top, #e58e92 0%,#ce6469 50%,#b02e34 51%,#b02e34 100%); 
+  color: #ffffff;
+  text-decoration:none;
+  font-size:20px;
+  font-weifght:bold;
+}
+
+#frame {
+  width:1270px;
+  height:1256px;
+  position:relative;
+  background-image: url('frame.gif');
+  margin: 20px auto;
+  text-align:left;
+}
+
 #board {
     height:1024px;
     width:1024px;
     background-image: url('board_w_squares.png');
     background-repeat: no-repeat;
     position: relative;
+    top:120px;
+    left:130px;
 
     #spaces div {
       width: 136px;
