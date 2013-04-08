@@ -1,14 +1,10 @@
 var SPINNER_NUM_SLIDES = 50, SPINNER_RATE = 50;
 
-function doTestSpin() {
-	spinWithStop(["Pawel", "Susan", "Amelia", "Shaun", "Darshan"], "Pawel");
-}
-
-function spinWithStop(players, winner) {
+function spinWithStop(players, winner, callback) {
 	var sc = $(".spinner-container");
 	assignRandom(0, sc, players);
 	sc.fadeIn(1000, function() {
-		moveSpinner(0, sc, players, winner);
+		moveSpinner(0, sc, players, winner, callback);
 	});
 }
 
@@ -20,9 +16,9 @@ function assignRandom(slide, sc, players) {
 	}
 }
 
-function moveSpinner(curSlide, sc, players, winner) {
+function moveSpinner(curSlide, sc, players, winner, callback) {
 	if(curSlide == SPINNER_NUM_SLIDES) {
-		spinnerShowWinner(sc, winner);
+		spinnerShowWinner(sc, winner, callback);
 		return;
 	}
 
@@ -34,15 +30,17 @@ function moveSpinner(curSlide, sc, players, winner) {
 			sc.find(".spinner").removeClass("offset");
 		}
 		curSlide++;
-		moveSpinner(curSlide, sc, players, winner);
+		moveSpinner(curSlide, sc, players, winner, callback);
 	}, SPINNER_RATE);
 }
 
-function spinnerShowWinner(sc, winner) {
+function spinnerShowWinner(sc, winner, callback ) {
 	sc.find(".mid").text(winner);
-	setTimeout(function() { hideSpinner(sc); }, 5000);
+	setTimeout(function() { hideSpinner(sc, callback); }, 1000);
 }
 
-function hideSpinner(sc) {
+function hideSpinner(sc, callback) {
 	sc.fadeOut(1000);
+	if ( callback )
+		callback();
 }
