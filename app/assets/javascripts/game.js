@@ -56,9 +56,9 @@ $(document).ready(function() {
         var team_average = 0;
         var description = '<h3 class="playerName">' + bonus.player_name + '</h3>';
         // faking it as I can't see any data I could use as team average
-        description += '<div class="compWrap"><div class="compBox"><h3>' + bonus.player_name + '</h3><p class="mileage">2.5</p><p>miles</p></div>';
+        description += '<div class="compWrap"><div class="compBox"><p>' + bonus.player_name + '</p><p class="mileage">2.5</p><p>miles</p></div>';
         description += '<div class="compBox"><p class="croc">></p></div>';
-        description += '<div class="compBox"><h3>Team Average</h3><p class="mileage">2.0</p><p>miles</p></div></div>';
+        description += '<div class="compBox"><p>Team Average</p><p class="mileage">2.0</p><p>miles</p></div></div>';
         if ( bonus.spaces > 0 ) { 
             description += '<p class="desc">Since ' + bonus.player_name + ' exceeded your teams average, your team progresses a BONUS space!</p>';
         } else {
