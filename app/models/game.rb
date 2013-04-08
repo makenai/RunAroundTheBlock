@@ -5,6 +5,24 @@ class Game < ActiveRecord::Base
   BONUS_SPACES = [ 3, 7, 13, 17, 23 ]
   DEMO_FLAG = true
   BOARD_SPACES = 26
+  PLAYER_NAMES = [
+    'Amelia Smith',
+    'Shaun Haber',
+    'Alice Han',
+    'Susan Hinton',
+    'Darshan Bhatt',
+    'Chris Peak'
+  ]
+
+  def self.initialize_other_users
+    PLAYER_NAMES.each do |name|
+      User.create({
+        name: name,
+        nickname: name,
+        location: 'Las Vegas'
+      })
+    end
+  end
 
   def self.current
     game = Game.where( winner_game_piece_id: nil ).order( 'start_at desc' ).first || Game.create( start_at: Time.now, current_turn_number: 0 )
@@ -90,13 +108,19 @@ class Game < ActiveRecord::Base
   end
 
   def assign_random_game_pieces
-    users = User.all
     self.game_pieces.destroy_all
     GamePiece::TEAMS.sample(3).each do |team|
-      user = users.sample(1).first
-      p user
       game_piece = GamePiece.create( game_id: self.id, name: team[:name], color: team[:color] )
+    end
+
+    users = User.all.shuffle
+    game_pieces = self.game_pieces.all.shuffle
+
+    while ( !users.empty? ) do
+      user = users.pop
+      game_piece = game_pieces.shift
       player = Player.create( user_id: user.id, game_piece_id: game_piece.id, turn_joined: 0 )
+      game_pieces.push( game_piece )  
     end
   end
 end

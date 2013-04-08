@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
 
+  attr_accessible :name, :nickname, :location
   has_many :players
   has_many :game_pieces, through: :players
 

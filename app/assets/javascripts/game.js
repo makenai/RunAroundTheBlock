@@ -94,6 +94,7 @@ $(document).ready(function() {
             (function(i) {
                 queueEvent( 2, function() {
                     (function (gp) {
+                        gp.is_current_user = true
                         animateGamePiece( gp, function( gp ) {
 
                             $.each( gp.bonuses, function( i, bonus ) {
