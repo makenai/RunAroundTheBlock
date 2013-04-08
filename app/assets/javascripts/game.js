@@ -53,6 +53,23 @@ $(document).ready(function() {
     function showWheelCard( bonus, callback ) {
         if ( callback )
             callback();
+        var team_average = 0;
+        var description = '<h3 class="playerName">' + bonus.player_name + '</h3>';
+        // faking it as I can't see any data I could use as team average
+        description += '<div class="compWrap"><div class="compBox"><h3>' + bonus.player_name + '</h3><p class="mileage">2.5</p><p>miles</p></div>';
+        description += '<div class="compBox"><p class="croc">></p></div>';
+        description += '<div class="compBox"><h3>Team Average</h3><p class="mileage">2.0</p><p>miles</p></div></div>';
+        if ( bonus.spaces > 0 ) { 
+            description += '<p class="desc">Since ' + bonus.player_name + ' exceeded your teams average, your team progresses a BONUS space!</p>';
+        } else {
+            description += '<p class="desc">You suck! No BONUS spaces for you!</p>';
+        }
+        $('#hero-modal p').html( description );
+        $('#hero-modal').fadeIn( function() {
+         setTimeout( function() {
+            $('#hero-modal').fadeOut( callback );
+         }, 2500 );   
+        });
     }
 
     function showWheel( bonus, gp, callback ) {

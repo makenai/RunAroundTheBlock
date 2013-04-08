@@ -242,17 +242,19 @@
   border-radius: 15px;
   top: 250px;
   left: 287px;
-  h2 {
+  h2, p {
     color: #999999;
     font-size: 16px;
     margin: 0;
     padding: 0;
     text-align: center;
   }
+
   display: none;
 }
 
-#card-modal {
+
+#card-modal, #hero-modal {
   div.card {
     color: white;
     width: 259px;
@@ -263,9 +265,50 @@
     padding: 20px;
     margin-top: 15px;
     -webkit-transform:rotate(-5deg);
-    -moz-transform:rotate(-5deg)
+    -moz-transform:rotate(-5deg);
+  }
+  div.card p {
+    color:#ffffff;
   }
 }
+
+#hero-modal.dialog {
+  height: 300px;
+}
+
+#hero-modal .playerName {
+      font-size:26px;
+      color:#2c79d4;
+}
+
+#hero-modal .compBox {
+  float:left;
+  height:100px;
+  width:100px;
+    h3 {
+      padding:0px;
+      margin:0px;
+      /*font-size:14px;*/
+    }
+    .mileage, .croc {
+      font-size:20px;
+      color:#2c79d4;
+    }
+    .croc {
+      padding-top:20px;
+      font-size: 30px;
+    }
+}
+
+#hero-modal .compWrap {
+  height: 110px;
+  margin-left:80px;
+  margin-bottom:10px;
+}
+
+#hero-modal .desc {
+  clear:both;      
+} 
 
 #event-card {
   position: absolute;
