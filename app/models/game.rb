@@ -37,7 +37,7 @@ class Game < ActiveRecord::Base
 
   def self.space_classes(i)
     classes = ""
-    if Game::BONUS_SPACES.include? (i+1)
+    if Game::BONUS_SPACES.include? (i)
       classes = "bonus-space"
     end
     "#{classes}"

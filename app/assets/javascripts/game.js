@@ -25,7 +25,6 @@ $(document).ready(function() {
             var spacePos = findPosOfSpace( gp.starting_space );
             marker.css( spacePos );
         }
-
     }
 
     function findPosOfSpace( space ) {
