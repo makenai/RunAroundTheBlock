@@ -262,12 +262,14 @@
 }
 
 #hero-modal.dialog {
-  height: 300px;
+  height: 260px;
 }
 
 #hero-modal .playerName {
       font-size:26px;
       color:#2c79d4;
+      margin:0px 0px 20px 0px;
+      padding:0px;
 }
 
 #hero-modal .compBox {
@@ -306,6 +308,12 @@
   width: 237px;
   height: 128px;
   background: url(/assets/event-card.png);
+}
+
+.ribbon {
+  position:absolute;
+  left:-13px;
+  top:-13px;
 }
 
 #nav-box {
